@@ -3,25 +3,17 @@ import { View, StyleSheet } from 'react-native';
 import Header from '@/components/Header'; // ajusta el path si tu archivo se llama distinto
 import Footer from '@/components/Footer';
 import WelcomeScreen from '@/components/WelcomeScreen';
+import MenuItems from '@/components/MenuItems';
 
-export default function HomeScreen() {
-return (
+export default function App() {
+  return (
     <>
       <View
-        style={{
-          flex: 1,
-          backgroundColor: '#495E57',
-        }}>
+        style={styles.container}>
         <Header />
+        <WelcomeScreen />
+        {/* <MenuItems/> */}
       </View>
-
-      <View 
-        style={{
-          backgroundColor: '#495E57'
-        }}>
-        <WelcomeScreen/>
-      </View>
-
       <View style={{ backgroundColor: '#495E57' }}>
         <Footer />
       </View>
@@ -29,11 +21,14 @@ return (
   );
 }
 
+
+
 const styles = StyleSheet.create({
-  screen: { flex: 1 },
-});
-
-
+  container: {
+    flex: 1,
+    backgroundColor: '#495E57',
+  }
+})
 
 
 
