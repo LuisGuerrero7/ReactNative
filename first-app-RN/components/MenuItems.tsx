@@ -1,20 +1,75 @@
-import React from 'react';
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, FlatList, ListRenderItem, SectionList } from 'react-native';
+
+type MenuItem = {
+  title: string,
+  data: [string],
+}
 
 const menuItemsToDisplay = [
-  'Hummus \nMoutabal \nFalafel \nMarinated Olives \nKofta \nEggplant Salad \nLentil Burger \nSmoked Salmon \nKofta Burger \nTurkish Kebab \nFries \nButtered Rice \nBread Sticks \nPita Pocket \nLentil Soup \nGreek Salad \nRice Pilaf \nBaklava \nTartufo \nTiramisu \nPanna Cotta',
+  {
+    title: 'Appetizers',
+    data: [
+      'Hummus',
+      'Moutabal',
+      'Falafel',
+      'Marinated Olives',
+      'Kofta',
+      'Eggplant Salad',
+    ],
+  },
+  {
+    title: 'Main Dishes',
+    data: ['Lentil Burger', 'Smoked Salmon', 'Kofta Burger', 'Turkish Kebab'],
+  },
+  {
+    title: 'Sides',
+    data: [
+      'Fries',
+      'Buttered Rice',
+      'Bread Sticks',
+      'Pita Pocket',
+      'Lentil Soup',
+      'Greek Salad',
+      'Rice Pilaf',
+    ],
+  },
+  {
+    title: 'Desserts',
+    data: ['Baklava', 'Tartufo', 'Tiramisu', 'Panna Cotta'],
+  },
 ];
 
+type ItemProps = {
+  name: string,
+  price: string
+}
+
+const Item = ({ name} : ItemProps) => (
+  <View style={menuStyles.innerContainer}>
+    <Text style={menuStyles.itemText}>{name} </Text>
+    {/* <Text style={menuStyles.itemText}>{price}</Text> */}
+  </View>
+);
+
+
 const MenuItems = () => {
+  const renderItem: ListRenderItem<MenuItem> = ({ item }) => <Item name={item.name} price = {item.price} />;
+
+  const renderSectionHeader: ListRenderItem<MenuItem> = ({ section: title }) => (
+    <Text>{title}</Text>
+  )
+
   return (
     <View style={menuStyles.container}>
-      <ScrollView
-        horizontal={false}
-        indicatorStyle={'white'}
-        style={menuStyles.container} >
-        <Text style={menuStyles.headerText}>View Menu</Text>
-        <Text style={menuStyles.itemText}>{menuItemsToDisplay[0]}</Text>
-      </ScrollView>
+      <Text style={menuStyles.headerText}>View Menu</Text>
+      <SectionList
+        keyExtractor={(item, index) => item + index}
+        sections={menuItemsToDisplay}
+        renderItem={renderItem}
+        renderSectionHeader={renderSectionHeader}  
+      >
+        
+      </SectionList>
     </View>
   );
 };
@@ -25,19 +80,21 @@ const menuStyles = StyleSheet.create({
   },
   innerContainer: {
     paddingHorizontal: 40,
-    paddingVertical: 40,
-    backgroundColor: 'black',
+    paddingVertical: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  itemText: {
+    color: '#F4CE14',
+    fontSize: 20,
   },
   headerText: {
     color: 'white',
     fontSize: 40,
     flexWrap: 'wrap',
-  },
-  itemText: {
-    color: '#F4CE14',
-    fontSize: 36,
+    textAlign: 'center',
+    marginVertical: 10
   },
 });
 
 export default MenuItems;
-
