@@ -4,6 +4,7 @@ import Header from '@/components/Header'; // ajusta el path si tu archivo se lla
 import Footer from '@/components/Footer';
 import WelcomeScreen from '@/components/WelcomeScreen';
 import MenuItems from '@/components/MenuItems';
+import LoginScreen from '@/components/LoginScreen';
 
 export default function App() {
   return (
@@ -12,7 +13,8 @@ export default function App() {
         style={styles.container}>
         <Header />
         {/* <WelcomeScreen /> */}
-        <MenuItems/>
+        <LoginScreen/>
+        {/* <MenuItems/> */}
       </View>
       <View style={{ backgroundColor: '#495E57' }}>
         <Footer />
