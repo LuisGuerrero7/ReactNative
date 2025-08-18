@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 import WelcomeScreen from '@/components/WelcomeScreen';
 import MenuItems from '@/components/MenuItems';
 import LoginScreen from '@/components/LoginScreen';
+import Welcome from '@/components/Welcome';
 
 export default function App() {
   return (
@@ -13,8 +14,9 @@ export default function App() {
         style={styles.container}>
         <Header />
         {/* <WelcomeScreen /> */}
-        <LoginScreen/>
+        {/* <LoginScreen/> */}
         {/* <MenuItems/> */}
+        <Welcome/>
       </View>
       <View style={{ backgroundColor: '#495E57' }}>
         <Footer />

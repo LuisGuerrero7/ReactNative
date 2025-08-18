@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 
-import { ScrollView, StyleSheet, Text, TextInput, KeyboardAvoidingView, Platform } from 'react-native';
+import { ScrollView, StyleSheet, Text, TextInput, KeyboardAvoidingView, Platform, Image } from 'react-native';
 
 export default function WelcomeScreen() {
   
@@ -13,6 +13,7 @@ export default function WelcomeScreen() {
   return (
     <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <ScrollView indicatorStyle={"white"}  keyboardDismissMode='on-drag'>
+        <Image resizeMode='center' accessible={true} source={require('/workspaces/ReactNative/first-app-RN/assets/images/littleLemonLogo.png')}/>
         <Text
           style={styles.welcomeText}>
           Welcome to Little Lemon
@@ -86,6 +87,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     borderColor: '#EDEFEE',
     backgroundColor: '#EDEFEE',
+  },
+  img: {
 
   }
 
