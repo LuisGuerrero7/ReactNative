@@ -6,21 +6,36 @@ import WelcomeScreen from '@/components/WelcomeScreen';
 import MenuItems from '@/components/MenuItems';
 import LoginScreen from '@/components/LoginScreen';
 import Welcome from '@/components/Welcome';
+import { NavigationContainer } from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack'
 
 export default function App() {
+
+  const Stack = createNativeStackNavigator();
+
   return (
     <>
-      <View
-        style={styles.container}>
-        <Header />
-        {/* <WelcomeScreen /> */}
-        {/* <LoginScreen/> */}
-        {/* <MenuItems/> */}
-        <Welcome/>
-      </View>
-      <View style={{ backgroundColor: '#495E57' }}>
-        <Footer />
-      </View>
+      <NavigationContainer>
+        <Stack.Navigator 
+          initialRouteName='Welcome'
+          screenOptions={{headerStyle: {backgroundColor: '#FBDABB'}}}
+        >
+          <View
+            style={styles.container}>
+            {/* <Header /> */}
+            {/* <WelcomeScreen /> */}
+            {/* <LoginScreen/> */}
+            {/* <MenuItems/> */}
+            {/* <Welcome/> */}
+            <Stack.Screen name='Header' component={Header} />
+            <Stack.Screen name='Welcome' options={{title: 'Home'}} component={Welcome} />
+            <Stack.Screen name='Menu' component={MenuItems} />
+            </View>
+            <View style={{ backgroundColor: '#495E57' }}>
+            <Footer />
+          </View>
+        </Stack.Navigator>
+      </NavigationContainer>
     </>
   );
 }
