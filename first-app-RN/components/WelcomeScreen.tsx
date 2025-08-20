@@ -1,9 +1,14 @@
 import * as React from 'react';
 import { useState } from 'react';
+import type { RootTabParamList } from '@/app/(tabs)'; 
+import { ScrollView, StyleSheet,View, Text, TextInput,
+   KeyboardAvoidingView, Platform, Image , ImageBackground, 
+   Pressable} from 'react-native';
+import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 
-import { ScrollView, StyleSheet,View, Text, TextInput, KeyboardAvoidingView, Platform, Image , ImageBackground} from 'react-native';
+type Props = BottomTabScreenProps<RootTabParamList, 'Welcome'>;
 
-export default function WelcomeScreen() {
+export default function WelcomeScreen( {navigation} : Props) {
   
   const [firstName, setFirstName] = useState<string>('')
   const [lastName, setLastName] = useState<string>('')
@@ -33,6 +38,12 @@ export default function WelcomeScreen() {
             and classic cocktails in a lively but casual environment. We would love
             to hear more about your experience with us!
           </Text>
+
+        <Pressable onPress={() => navigation.navigate('MenuItems')}> 
+          <Text style={styles.buttonText}>
+            View Menu
+          </Text>
+        </Pressable>
         
         <Text style={styles.secondText}>
           Please answer this questions:
@@ -117,5 +128,10 @@ const styles = StyleSheet.create({
     borderColor: '#EDEFEE',
     backgroundColor: '#EDEFEE',
   },
+  buttonText: {
+    fontSize: 20,
+    color: '#EDEFEE',
+    textAlign: 'center',
+  }
 
 })

@@ -6,37 +6,49 @@ import WelcomeScreen from '@/components/WelcomeScreen';
 import MenuItems from '@/components/MenuItems';
 import LoginScreen from '@/components/LoginScreen';
 import Welcome from '@/components/Welcome';
-import { NavigationContainer } from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Ionicons } from '@expo/vector-icons';
+
+
+const Tab = createBottomTabNavigator<RootTabParamList>();
+
+export type RootTabParamList = {
+  Welcome: undefined;
+  Login: undefined;
+  MenuItems: undefined; // <- porque haces navigation.navigate('MenuItems')
+};
+
+const Stack = createNativeStackNavigator<RootTabParamList>();
 
 export default function App() {
-
-  const Stack = createNativeStackNavigator();
-
   return (
-    <>
-      <NavigationContainer>
-        <Stack.Navigator 
-          initialRouteName='Welcome'
-          screenOptions={{headerStyle: {backgroundColor: '#FBDABB'}}}
-        >
-          <View
-            style={styles.container}>
-            {/* <Header /> */}
-            {/* <WelcomeScreen /> */}
-            {/* <LoginScreen/> */}
-            {/* <MenuItems/> */}
-            {/* <Welcome/> */}
-            <Stack.Screen name='Header' component={Header} />
-            <Stack.Screen name='Welcome' options={{title: 'Home'}} component={Welcome} />
-            <Stack.Screen name='Menu' component={MenuItems} />
-            </View>
-            <View style={{ backgroundColor: '#495E57' }}>
-            <Footer />
-          </View>
-        </Stack.Navigator>
-      </NavigationContainer>
-    </>
+      <>
+        <View style={styles.container}>
+          <Header />
+          <Tab.Navigator initialRouteName="Login" screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName:any;
+
+          if (route.name === 'Welcome') {
+            iconName = 'ios-home'
+          } else if (route.name === 'MenuItems') {
+            iconName =  'ios-enter';
+          }
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: 'tomato',
+        tabBarInactiveTintColor: 'gray',
+      })}>
+            <Tab.Screen name="Welcome" component={WelcomeScreen}/>
+            <Tab.Screen name="Login" component={LoginScreen} />
+            <Tab.Screen name='MenuItems' component={MenuItems} />
+          </Tab.Navigator>
+        </View>
+        <View style={styles.footerContainer}>
+          <Footer />
+        </View>
+      </>
   );
 }
 
@@ -46,104 +58,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#495E57',
+  },
+  footerContainer: {
+    backgroundColor: '#333333'
   }
 })
-
-
-
-
-
-
-
-
-
-
-// import { Image } from 'expo-image';
-// import { Platform, StyleSheet } from 'react-native';
-
-// import { HelloWave } from '@/components/HelloWave';
-// import ParallaxScrollView from '@/components/ParallaxScrollView';
-// import { ThemedText } from '@/components/ThemedText';
-// import { ThemedView } from '@/components/ThemedView';
-// import { View } from 'react-native-reanimated/lib/typescript/Animated';
-// import Header from '@/components/firstComponent';
-
-// export default function HomeScreen() {
-//   return (
-
-
-
-
-    // <ParallaxScrollView
-//       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-//       headerImage={
-//         <Image
-//           source={require('@/assets/images/partial-react-logo.png')}
-//           style={styles.reactLogo}
-//         />
-//       }>
-//       <ThemedView style={styles.titleContainer}>
-//         <ThemedText type="title">Bienvenido!</ThemedText>
-        
-
-//         <HelloWave />
-//       </ThemedView>
-
-//       <ThemedView>
-//         <Header/>
-//       </ThemedView>
-
-//       <ThemedView style={styles.stepContainer}>
-//         <ThemedText type="subtitle">Primer paso: Intentalo!</ThemedText>
-//         <ThemedText>
-//           Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-//           Press{' '}
-//           <ThemedText type="defaultSemiBold">
-//             {Platform.select({
-//               ios: 'cmd + d',
-//               android: 'cmd + m',
-//               web: 'F12',
-//             })}
-//           </ThemedText>{' '}
-//           to open developer tools.
-//         </ThemedText>
-//       </ThemedView>
-//       <ThemedView style={styles.stepContainer}>
-//         <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-//         <ThemedText>
-//           {`Tap the Explore tab to learn more about what's included in this starter app.`}
-//         </ThemedText>
-//       </ThemedView>
-//       <ThemedView style={styles.stepContainer}>
-//         <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-//         <ThemedText>
-//           {`When you're ready, run `}
-//           <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-//           <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-//           <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-//           <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-//         </ThemedText>
-//       </ThemedView>
-//     </ParallaxScrollView>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   titleContainer: {
-//     flexDirection: 'row',
-//     alignItems: 'center',
-//     gap: 8,
-//   },
-//   stepContainer: {
-//     gap: 8,
-//     marginBottom: 8,
-//   },
-//   reactLogo: {
-//     height: 178,
-//     width: 290,
-//     bottom: 0,
-//     left: 0,
-//     position: 'absolute',
-//   },
-// })
-//

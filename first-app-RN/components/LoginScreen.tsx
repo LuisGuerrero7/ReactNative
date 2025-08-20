@@ -6,11 +6,17 @@ import {
   TextInput,
   Pressable,
 } from 'react-native';
+import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import type { RootTabParamList } from '@/app/(tabs)'; 
 
-export default function LoginScreen() {
+type Props = BottomTabScreenProps<RootTabParamList, 'Login'>;
+
+export default function LoginScreen({navigation}: Props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
+
+
 
   return (
     <ScrollView style={styles.container}>
@@ -35,7 +41,10 @@ export default function LoginScreen() {
             keyboardType={'default'}
             secureTextEntry={true}
           />
-          <Pressable onPress={() => setLoggedIn(!loggedIn)} style={styles.button}>
+          <Pressable onPress={() => 
+          // setLoggedIn(!loggedIn)} 
+          navigation.navigate('Welcome')}
+          style={styles.button} >
             <Text style={styles.buttonText}>Log in</Text>
           </Pressable>
         </>
