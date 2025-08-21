@@ -9,10 +9,9 @@ import Welcome from '@/components/Welcome';
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 
 
-const Drawer = createDrawerNavigator<RootTabParamList>()
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
@@ -29,10 +28,24 @@ export default function App() {
       <>
         <View style={styles.container}>
           <Header />
-          <Drawer.Navigator useLegacyImplementation initialRouteName= 'Welcome' screenOptions={{ drawerPosition: 'right' }}>
-            <Drawer.Screen name='Welcome' component={WelcomeScreen} />
-            <Drawer.Screen name='Login' component={LoginScreen}/>
-          </Drawer.Navigator>
+          <Tab.Navigator initialRouteName="Login" screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName:any;
+
+          if (route.name === 'Welcome') {
+            iconName = 'ios-home'
+          } else if (route.name === 'MenuItems') {
+            iconName =  'ios-enter';
+          }
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: 'tomato',
+        tabBarInactiveTintColor: 'gray',
+      })}>
+            <Tab.Screen name="Welcome" component={WelcomeScreen}/>
+            <Tab.Screen name="Login" component={LoginScreen} />
+            <Tab.Screen name='MenuItems' component={MenuItems} />
+          </Tab.Navigator>
         </View>
         <View style={styles.footerContainer}>
           <Footer />
@@ -52,26 +65,3 @@ const styles = StyleSheet.create({
     backgroundColor: '#333333'
   }
 })
-
-
-
-
-// TAB NAVIGATOR EXAMPLE
- {/* <Tab.Navigator initialRouteName="Login" screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused, color, size }) => {
-          let iconName:any;
-
-          if (route.name === 'Welcome') {
-            iconName = 'ios-home'
-          } else if (route.name === 'MenuItems') {
-            iconName =  'ios-enter';
-          }
-          return <Ionicons name={iconName} size={size} color={color} />;
-        },
-        tabBarActiveTintColor: 'tomato',
-        tabBarInactiveTintColor: 'gray',
-      })}> */}
-            {/* <Tab.Screen name="Welcome" component={WelcomeScreen}/>
-            <Tab.Screen name="Login" component={LoginScreen} />
-            <Tab.Screen name='MenuItems' component={MenuItems} /> */}
-          {/* </Tab.Navigator> */}
