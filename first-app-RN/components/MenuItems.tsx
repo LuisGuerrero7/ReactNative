@@ -79,7 +79,7 @@ export default function MenuItems() {
       {!showMenu && (<Text style={menuStyles.infoSection}>
           Little Lemon is a charming neighborhood bistro that serves simple food
           and classic cocktails in a lively but casual environment. View our
-          menu to explore our cuisine with daily specials!
+          menu to explore our cuisine with daily specials!!!
         </Text>)
       }
       <Pressable
@@ -107,7 +107,7 @@ export default function MenuItems() {
 const menuStyles = StyleSheet.create({
   container: { flex: 1 },
   innerContainer: {
-    paddingHorizontal: 40,
+    paddingHorizontal: 41,
     paddingVertical: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
